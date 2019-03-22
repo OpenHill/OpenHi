@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block top %}
+    {% include 'Nologin/basetop.html' %}
+{% endblock %}
+
+{% block login_regnin %}
+    {% include 'login.html' %}
+    {% include 'regnin.html' %}
+{% endblock %}
+
+{% block content %}
+    {% include 'content.html' %}
+{% endblock %}
+
