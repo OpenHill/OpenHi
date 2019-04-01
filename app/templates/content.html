@@ -1,11 +1,30 @@
 <div class="container">
-        <div class="row">
-            <div id="one" class="visible-lg visible-md">
-                <!--左边栏-->
-            </div>
-            <div id="two">
-                <!--右边内容-->
-                {% for foo in Model["ContentList"] %}
+    <div class="row">
+        <div id="one" class="visible-lg visible-md">
+            <!--左边栏-->
+        </div>
+        <div id="two">
+            <!--右边内容-->
+            {#        flask 闪现提示#}
+            {% for flag,message in get_flashed_messages(category_filter=["ALLOK","ALLNO"],with_categories=true) %}
+                {% if flag == "ALLOK" %}
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <b>成功：{{ message }}</b>
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <b>错误：{{ message }}</b>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+
+
+            {% for foo in Model["ContentList"] %}
                 <div class="row blog-Item-h" style="margin: 30px 20px;background-color: #fff;padding: 4px">
                     <!--Item page-->
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 blog-img-auto"
@@ -26,20 +45,22 @@
                         </p>
                         <div class="blog-item-hw"></div>
                         <div class="row blog-item-foot" style="overflow: hidden;">
-                            <div class="col-lg-2 col-sm-2 col-xs-3 col-md-2" style="padding: 0;"><i class="glyphicon glyphicon-user"></i> {{ foo["Author"] }}</div>
-                            <div class="col-lg-4 col-sm-4 col-xs-9 col-md-4" style="padding: 0;"><i class="glyphicon glyphicon-time"></i>{{ foo["Data"] }}</div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs" style="padding: 0;"><i class="glyphicon glyphicon-comment"></i>{{ foo["CommentNum"] }}</div>
+                            <div class="col-lg-2 col-sm-2 col-xs-3 col-md-2" style="padding: 0;"><i
+                                    class="glyphicon glyphicon-user"></i> {{ foo["Author"] }}</div>
+                            <div class="col-lg-4 col-sm-4 col-xs-9 col-md-4" style="padding: 0;"><i
+                                    class="glyphicon glyphicon-time"></i>{{ foo["Data"] }}</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs" style="padding: 0;"><i
+                                    class="glyphicon glyphicon-comment"></i>{{ foo["CommentNum"] }}</div>
 
                         </div>
                     </div>
 
                 </div>
-                {% endfor %}
+            {% endfor %}
 
 
-
-            </div>
         </div>
-
-
     </div>
+
+
+</div>

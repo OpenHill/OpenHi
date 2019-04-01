@@ -1,0 +1,47 @@
+#topnav {
+    border-radius: 0;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    padding: 0;
+}
+
+
+#main {
+    /*padding-top: 100px;*/
+    background-color: #EEEEEE;
+    height: 100vh;
+    padding: 0;
+}
+
+#content {
+    overflow: auto;
+}
+
+@media (max-width: 500px) {
+    .content-manger {
+        margin: 0 5px
+    }
+}
+
+@media (min-width: 501px) {
+    .content-manger {
+        margin: 0 40px
+    }
+}
+
+.tabclearbtn {
+    padding: 0px;
+    position: absolute;
+    right: 0;
+    top: -3px;
+}
+
+.tabcontent {
+    display: inline-block;
+    height: 40px;
+    padding-top: 10px;
+    padding-right: 10px;
+    margin: 1px 3px;
+    position: relative
+}

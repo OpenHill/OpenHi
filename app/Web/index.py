@@ -3,16 +3,18 @@
 # index 视图
 from . import web
 from flask import request, redirect, render_template, session
-from ..datahand.NoLogin_Index_Data import NoLoginIndexData
-from ..form.LoingandRegnin import LoginFormVal
+from ..datahand.Index_Data import IndexData
+from ..form.LoingandRegnin import LoginFormVal, RegninFormVal
 
 
 @web.route('/', methods=['GET', 'POST'])
 def index():
     userid = session.get("user_id", None)
     if userid:
-        return render_template("Oklogin/index.html")
+        model = IndexData(userid).Main()
+        return render_template("Oklogin/index.html", Model=model)
     else:
         LoginForm = LoginFormVal()
-        model = NoLoginIndexData().Mian()
-        return render_template("Nologin/index.html", Model=model, forms=LoginForm)
+        RegninForm = RegninFormVal()
+        model = IndexData().Main()
+        return render_template("Nologin/index.html", Model=model, loginforms=LoginForm, regninforms=RegninForm)
