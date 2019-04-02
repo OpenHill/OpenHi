@@ -16,7 +16,7 @@ a:hover {
 }
 
 #main {
-    border: red 1px solid;
+    /*border: red 1px solid;*/
     height: 100vh;
     box-shadow: 0 0 30px rgba(0, 0, 0, .7);
     position: relative;

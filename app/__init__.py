@@ -17,12 +17,11 @@ def create_app(Config):
 
     CSRFProtect(app)
 
-
     register_blueprint(app)
 
     login_manager.init_app(app)
     login_manager.session_protection = "strong"
-    login_manager.login_view = 'api.index'
+    login_manager.login_view = 'Web.index'
     login_manager.login_message_category = 'info'
     login_manager.login_message = 'Access denied.'
 

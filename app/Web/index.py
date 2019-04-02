@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*
 # There is Mr. Wang's creation
 # index 视图
+from flask_wtf import FlaskForm
+
 from . import web
 from flask import request, redirect, render_template, session
 from ..datahand.Index_Data import IndexData

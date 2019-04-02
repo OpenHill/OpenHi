@@ -6,17 +6,17 @@ from wtforms.validators import DataRequired, ValidationError, Length, Email
 
 class LoginFormVal(FlaskForm):
     username = StringField(
-        label="账号",
+        label="邮箱",
         validators=[
-            DataRequired(message="密码不能为空"),
+            DataRequired(message="邮箱不能为空"),
             Length(min=7, max=50, message="账号长度为7-50"),
             Email(message="账号应为E-Mail格式")
         ],
-        description="账号",
+        description="邮箱",
         render_kw={
             "id": "login_username",
             "class": "form-control",
-            "placeholder": "请输入账号!",
+            "placeholder": "请输入邮箱!",
             "required": 'required'  # 表示输入框不能为空，并有提示信息
         }
     )
@@ -63,17 +63,17 @@ class RegninFormVal(FlaskForm):
     )
 
     username = StringField(
-        label="账号",
+        label="邮箱",
         validators=[
-            DataRequired(message="密码不能为空"),
+            DataRequired(message="邮箱不能为空"),
             Length(min=7, max=50, message="账号长度为7-50"),
             Email(message="账号应为E-Mail格式")
         ],
-        description="账号",
+        description="邮箱",
         render_kw={
             "id": "regnin_username",
             "class": "form-control",
-            "placeholder": "请输入账号!",
+            "placeholder": "请输入邮箱!",
             "required": 'required'  # 表示输入框不能为空，并有提示信息
         }
     )

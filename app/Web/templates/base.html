@@ -3,20 +3,24 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for("static",filename="css/bootstrap.min.css") }}">
-    <script src="{{ url_for("static",filename="js/jq2.14.js") }}"></script>
-    <script src="{{ url_for("static",filename="js/bootstrap.min.js") }}"></script>
-    {% block header %}{% endblock %}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="{{ url_for("static",filename="css/bootstrap.min.css") }}">
+
 
     <title>test</title>
 </head>
-<div id="main" class="container ">
+<body>
+<div id="main" class="container">
     {% block top %}{% endblock %}
     {% block login_regnin %}{% endblock %}
-
     {% block content %}{% endblock %}
-
-
 </div>
 
+
+<script src="{{ url_for("static",filename="js/jq2.14.js") }}"></script>
+<script src="{{ url_for("static",filename="js/csrf.js") }}"></script>
+<script src="{{ url_for("static",filename="js/bootstrap.min.js") }}"></script>
+{% block header %}{% endblock %}
+</body>
 </html>

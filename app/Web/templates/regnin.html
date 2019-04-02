@@ -3,7 +3,6 @@
         <div class="modal-content">
             <div class="modal-body">
                 <form action="/regnin" method="post">
-                    {{ regninforms.csrf_token() }}
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 
                     <div class="text-center">
@@ -12,43 +11,33 @@
                     <div class="text-center" style="margin: 10px">
                         <div class="input-group form-group" data-form-flag="Regnin">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            {{ regninforms.usernikename }}
+                            <input class="form-control" id="regnin_usernikename" name="usernikename" placeholder="请输入昵称"
+                                   required="required" type="text" value="">
                         </div>
                     </div>
                     <div class="text-center" style="margin: 10px">
                         <div class="input-group form-group" data-form-flag="Regnin">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            {{ regninforms.username }}
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            <input class="form-control" id="regnin_username" name="username" placeholder="请输入邮箱!"
+                                   required="required" type="text" value="">
                         </div>
-                        {% if regninforms.username.errors %}
-                            <div class="text-left" style="margin: 10px">
-                                <p style="color: red">{{ regninforms.username.errors }}</p>
-                            </div>
-                        {% endif %}
-
-
                     </div>
                     <div class="text-center" style="margin: 10px">
                         <div class="input-group form-group" data-form-flag="Regnin">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            {{ regninforms.userpwd }}
+                            <input class="form-control" id="regnin_userpwd" name="userpwd" placeholder="请输入密码!"
+                                   required="required" type="password" value="">
                         </div>
                     </div>
-                    {% if regninforms.userpwd.errors %}
-                        <div class="text-left" style="margin: 10px">
-                            <p style="color: red">{{ regninforms.userpwd.errors }}</p>
-                        </div>
-                    {% endif %}
+
                     <div class="text-right" style="margin: 10px;">
-                        {{ regninforms.submit }}
+                        <input class="btn btn-primary" id="regnin_submit" name="submit" type="submit" value="注QAQ册">
                     </div>
 
                     <!--注册错误提示-->
-                    {% for message in get_flashed_messages(category_filter=["Regnin"]) %}
-                        <div class="text-left" style="margin: 10px">
-                            <p style="color: red">{{ message }}</p>
-                        </div>
-                    {% endfor %}
+                    <div class="text-left" style="margin: 10px">
+                        <p id="regnin_alert" style="color: red"></p>
+                    </div>
                 </form>
             </div>
 

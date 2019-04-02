@@ -5,25 +5,6 @@
         </div>
         <div id="two">
             <!--右边内容-->
-            {#        flask 闪现提示#}
-            {% for flag,message in get_flashed_messages(category_filter=["ALLOK","ALLNO"],with_categories=true) %}
-                {% if flag == "ALLOK" %}
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">×</span></button>
-                        <b>成功：{{ message }}</b>
-                    </div>
-                {% else %}
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">×</span></button>
-                        <b>错误：{{ message }}</b>
-                    </div>
-                {% endif %}
-
-            {% endfor %}
-
-
             {% for foo in Model["ContentList"] %}
                 <div class="row blog-Item-h" style="margin: 30px 20px;background-color: #fff;padding: 4px">
                     <!--Item page-->

@@ -1,9 +1,10 @@
 from .index import web
-from flask import request, render_template, session, redirect, url_for, g, flash
+from flask import request, render_template, session, redirect, url_for, g, flash, jsonify
 from ..models.DB.mainDB import User, DB
 from .. import login_manager
 from flask_login import login_user, login_required, logout_user
 from ..form.LoingandRegnin import LoginFormVal, RegninFormVal
+from app.utlis.xjson import json_success, json_params_error
 
 
 @login_manager.user_loader
@@ -13,8 +14,6 @@ def load_user(id):
 
 @web.route("/login", methods=['GET', 'POST'])
 def Login():
-    flash("登陆成功", "OK")
-    flash("登陆失败", "ERROR")
     if request.method == "GET":
         return redirect(url_for('Web.index'))
     else:
@@ -26,20 +25,19 @@ def Login():
             if user:
                 if user.check_password(userpwd):
                     login_user(user)
-                    next = request.args.get('next')
-                    flash("登入成功", "ALLOK")
-                    return redirect(next or url_for('api.index'))
+                    return json_success("登入成功")
                 else:
-                    flash("密码或账号错误", "Login")
+                    return json_params_error("账号或密码错误")
             else:
-                flash("不存账号", "Login")
+                return json_params_error("账号或密码错误")
         else:
+            error = ""
             if login_val.username.errors:
-                flash(login_val.username.errors[0], "Login")
+                error += (login_val.username.errors[0] + ",")
             if login_val.userpwd.errors:
-                flash(login_val.userpwd.errors[0], "Login")
-        flash("登入失败,错误详情在登陆界面", "ALLNO")
-        return redirect(url_for('Web.index'))
+                error += (login_val.userpwd.errors[0] + ",")
+
+        return json_params_error(error)
 
 
 @web.route('/regnin', methods=['POST', 'GET'])
@@ -58,19 +56,18 @@ def regnin():
                 DB.session.add(user)
                 DB.session.commit()
                 login_user(user)
-                next = request.args.get('next')
-                return redirect(next or url_for('Web.index'))
+                return json_success("注册成功")
             else:
-                flash("账号已被注册", "ALLNO")
+                return json_params_error("用户已存在")
         else:
+            error = ""
             if regnin_val.usernikename.errors:
-                flash(regnin_val.usernikename.errors[0], "Regnin")
+                error += (regnin_val.usernikename.errors[0] + ",")
             if regnin_val.username.errors:
-                flash(regnin_val.username.errors[0], "Regnin")
+                error += (regnin_val.username.errors[0] + ",")
             if regnin_val.userpwd.errors:
-                flash(regnin_val.userpwd.errors[0], "Regnin")
-    flash("注册失败,错误详情在注册界面", "ALLNO")
-    return redirect(url_for('Web.index'))
+                error += (regnin_val.userpwd.errors[0] + ",")
+    return json_params_error(error)
 
 
 @web.route("/outlogin", methods=['GET'])
@@ -79,6 +76,4 @@ def outloing():
     logout_user()
     return redirect(url_for('Web.index'))
 
-@web.route("/s")
-def ou():
-    return url_for("static",filename="now.html")
+#
