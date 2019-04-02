@@ -3,10 +3,12 @@
 # 蓝图模块化注册文件
 
 # 导入Blueprint
+
 from flask import Blueprint
 
 # 初始化 ‘web’蓝图
-web = Blueprint('api', __name__)
+web = Blueprint('Web', __name__,
+                template_folder="templates")
 
 # 导入视图
 from . import index

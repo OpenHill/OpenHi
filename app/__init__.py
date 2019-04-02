@@ -5,19 +5,18 @@ from flask import Flask
 from app.models.DB.mainDB import DB
 from flask_login import LoginManager
 from flask_wtf import CSRFProtect
-from flask_ckeditor import CKEditor
 
 login_manager = LoginManager()
-ckeditor = CKEditor()
 
 def create_app(Config):
+    # print(Config)
     app = Flask(__name__)
 
-    ckeditor.init_app(app)
+    # 优先导入配置文件
+    app.config.from_object(Config)
 
     CSRFProtect(app)
 
-    app.config.from_object(Config)
 
     register_blueprint(app)
 

@@ -16,7 +16,7 @@ def Login():
     flash("登陆成功", "OK")
     flash("登陆失败", "ERROR")
     if request.method == "GET":
-        return redirect(url_for('api.index'))
+        return redirect(url_for('Web.index'))
     else:
         login_val = LoginFormVal()
         if login_val.validate_on_submit():
@@ -39,13 +39,13 @@ def Login():
             if login_val.userpwd.errors:
                 flash(login_val.userpwd.errors[0], "Login")
         flash("登入失败,错误详情在登陆界面", "ALLNO")
-        return redirect(url_for('api.index'))
+        return redirect(url_for('Web.index'))
 
 
 @web.route('/regnin', methods=['POST', 'GET'])
 def regnin():
     if request.method == "GET":
-        return redirect(url_for('api.index'))
+        return redirect(url_for('Web.index'))
     else:
         regnin_val = RegninFormVal()
         if regnin_val.validate_on_submit():
@@ -59,7 +59,7 @@ def regnin():
                 DB.session.commit()
                 login_user(user)
                 next = request.args.get('next')
-                return redirect(next or url_for('api.index'))
+                return redirect(next or url_for('Web.index'))
             else:
                 flash("账号已被注册", "ALLNO")
         else:
@@ -70,11 +70,15 @@ def regnin():
             if regnin_val.userpwd.errors:
                 flash(regnin_val.userpwd.errors[0], "Regnin")
     flash("注册失败,错误详情在注册界面", "ALLNO")
-    return redirect(url_for('api.index'))
+    return redirect(url_for('Web.index'))
 
 
 @web.route("/outlogin", methods=['GET'])
 @login_required
 def outloing():
     logout_user()
-    return redirect(url_for('api.index'))
+    return redirect(url_for('Web.index'))
+
+@web.route("/s")
+def ou():
+    return url_for("static",filename="now.html")

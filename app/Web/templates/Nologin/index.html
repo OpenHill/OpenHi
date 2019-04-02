@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <script src="../static/js/index.js"></script>
-    <link rel="stylesheet" href="../static/css/index.css">
+    <script src="{{ url_for("static",filename="js/index.js") }}"></script>
+    <link rel="stylesheet" href="{{ url_for("static",filename="css/index.css") }}">
+
 
 {% endblock %}
 
