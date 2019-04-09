@@ -61,13 +61,15 @@ $(function () {
                         window.location.href = "/"
                     } else {
                         // 失败
-                        $("#login_alert").text(msg.message);
+                        toastr.error(msg.message);
                         $("#login_submit").removeClass("disabled")
                     }
                 },
                 error: function (msg) {
-                    console.log(msg);
+                    // console.log(msg);
+                    toastr.error(msg.message);
                 }
+
             });
         } else {
 
@@ -139,12 +141,13 @@ $(function () {
                         window.location.href = "/"
                     } else {
                         // 失败s
-                        $("#regnin_alert").text(msg.message);
+                        // $("#regnin_alert").text(msg.message);
+                        toastr.error(msg.message);
                         $("#regnin_submit").removeClass("disabled");
                     }
                 },
                 error: function (msg) {
-                    console.log(msg);
+                   toastr.error(msg);
                 }
             });
         } else {

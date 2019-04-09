@@ -99,7 +99,7 @@ class Tag(DB.Model):
     name = DB.Column(String(20), nullable=False)  # 标签名称
 
 
-class Classify(DB.Model):
+class Classfiy(DB.Model):
     __tablename__ = "classify_table"
     cfid = DB.Column(Integer, primary_key=True, autoincrement=True)  # 分类编号
     cfname = DB.Column(String(60), nullable=False)  # 分类名

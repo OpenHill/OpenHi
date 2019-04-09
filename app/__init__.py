@@ -38,8 +38,10 @@ def register_blueprint(app):
     # 导入蓝图
     from app.Web import web
     from app.User import user
+    from app.Api import api
     #为flask_app 注册蓝图
     app.register_blueprint(web)
     app.register_blueprint(user)
+    app.register_blueprint(api)
 
 
