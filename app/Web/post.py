@@ -9,8 +9,7 @@ from flask_login import login_required
 from app.datahand.Nav_Oklogin import NavOkLoginModel
 from . import web
 from flask import request, g, session, render_template, redirect, url_for, make_response
-from app.form.Editor import EditorForm
-from app.models.DB.mainDB import DB, ImgManage, Post
+from app.models.DB.mainDB import DB, ImgManage, Post, Tag
 from app.utlis.xjson import json_params_error, json_success
 from app.datahand.globalmodel.ClassfiyModel import ClassfiyModel
 
@@ -20,28 +19,69 @@ from app.datahand.globalmodel.ClassfiyModel import ClassfiyModel
 @login_required
 def editor():
     userid = session.get("user_id", None)
+    if not userid:
+        return redirect('web.index')
     model = NavOkLoginModel(userid).Main()
-    editorform = EditorForm()
     if request.method == "GET":
         return render_template("EditPost/editindex.html", Model=model)
     else:
-        if editorform.validate_on_submit():
-            # 数据赋值
-            uid = session["user_id"]
-            print(request.json)
-            return request.json
-            # title = editorform.title.data
-            # editortext = editorform.editor.data
-            #
-            # imglist = re.findall('src="(.*?)"', editortext)
-            # if imglist:
-            #     for i in imglist:
-            #         imgneturl = SeveImgAsBase64(i)
-            #         editortext = editortext.replace(i, imgneturl)
+        postTitle = request.json.get("postTitle", "未命名")
+        postContent = request.json.get("postContent", None)
+        postTags = request.json.get("postTags", None)
+        postClassfiy = request.json.get("postClassfiy", None)
 
-            # post = Post(uid, title, editortext, )
+        if not postContent:
+            return json_params_error("内容都敢为空？？？")
+        if not postTags:
+            return json_params_error("标记都没有？？？")
+        if not postClassfiy:
+            return json_params_error("不分类吗？？？")
 
-    # return editortext
+        postTags = postTags.split(":")[1:]
+
+        # Tag逻辑
+        for index, i in enumerate(postTags):
+            tag = Tag.query.filter(Tag.name == i).first()
+            if not tag:
+                newtag = Tag(i)
+                DB.session.add(newtag)
+                DB.session.commit()
+                postTags[index] = newtag
+            else:
+                postTags[index] = tag
+
+        # PostContent逻辑
+        imglist = re.findall('src="(.*?)"', postContent)
+        if imglist:
+            for i in imglist:
+                imgneturl = SeveImgAsBase64(i)
+                postContent = postContent.replace(i, imgneturl)
+
+        posts = Post(userid, postTitle, postContent, postClassfiy)
+        for i in postTags:
+            posts.tags.append(i)
+        DB.session.add(posts)
+        DB.session.commit()
+
+        return json_success("成功", {"url": "post/" + str(posts.pid)})
+
+
+@web.route("/editor/api/classfiyfather", methods=["POST"])
+@login_required
+def getClassfiyFather():
+    return json_success("获取分类", data=ClassfiyModel().getFatherClassfiy())
+
+
+@web.route("/editor/api/classfiychildren", methods=["POST"])
+@login_required
+def getClassfiyChildren():
+    Id = request.json.get('Id', None)
+    if Id:
+        return json_success("获取分类", data=ClassfiyModel().getChildrenClassfiy(id=Id))
+    return json_params_error("参数错误")
+
+
+#  工具方法
 
 
 def SeveImgAsBase64(basecode):
@@ -70,18 +110,3 @@ def SeveImgAsBase64(basecode):
 
     # 放回图片的网络地址
     return "/file/img/" + imgname
-
-
-@web.route("/editor/api/classfiyfather", methods=["POST"])
-@login_required
-def getClassfiyFather():
-    return json_success("获取分类", data=ClassfiyModel().getFatherClassfiy())
-
-
-@web.route("/editor/api/classfiychildren", methods=["POST"])
-@login_required
-def getClassfiyChildren():
-    Id = request.json.get('Id', None)
-    if Id:
-        return json_success("获取分类", data=ClassfiyModel().getChildrenClassfiy(id=Id))
-    return json_params_error("参数错误")

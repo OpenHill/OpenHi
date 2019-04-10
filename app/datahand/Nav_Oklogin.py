@@ -10,6 +10,6 @@ class NavOkLoginModel(UserModel, ClassfiyModel):
                 "User": None, }
 
     def Main(self):
-        self.dictData["Classfiy"] = [i for i in self.GetAllClassfiy()]
+        self.dictData["Classfiy"] =self.GetAllClassfiy()
         self.dictData["User"] = self.GetOneUser()
         return self.dictData

@@ -13,4 +13,5 @@ class Config:
 
     DEBUG = True
 
-
+    # 一页显示多少个item
+    PAGENUM = 10

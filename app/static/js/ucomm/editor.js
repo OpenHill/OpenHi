@@ -152,10 +152,27 @@ $(function () {
         ) {
             tags = tags + ":" + tabsObj[j].innerText
         }
-        let classfiy = 0;
+        if (postTitle.length <= 6) {
+            toastr.warning("标题少于7字符！");
+            return;
+        }
 
-        // console.log($("#exampleFormControlSelect1").index());
-        // console.log($("#exampleFormControlSelect2").val());
+        if (postTitle.length > 50) {
+            toastr.warning("标题最多50字符！");
+        }
+
+
+        if (postContent.toString().length <= 30) {
+            toastr.warning("正文少于30字符！");
+            return;
+        }
+
+        if (nowtabnum == 0) {
+            toastr.warning("还未定义标签！");
+            return;
+        }
+
+        let classfiy = 0;
         if ($("#exampleFormControlSelect2").val()) {
             classfiy = $("#exampleFormControlSelect2").val();
         } else if ($("#exampleFormControlSelect1").val() != 0) {
@@ -166,29 +183,31 @@ $(function () {
         }
 
 
-        // $.ajax({
-        //     type: "post",
-        //     url: "/editor",
-        //     contentType: "application/json; charset=utf-8",
-        //     data: JSON.stringify({"Id": value}),
-        //     dataType: "json",
-        //     async: true,
-        //     timeout: 50000,
-        //     success: function (msg) {
-        //         if (msg.code == 200) {
-        //             $("#exampleFormControlSelect2").empty();
-        //             Object.keys(msg.data).forEach(function (key) {
-        //                 $("#exampleFormControlSelect2").append("<option value='" + msg.data[key].Id + "'>" + msg.data[key].Name + "</option>");
-        //             });
-        //         } else {
-        //             toastr.error(msg.message);
-        //         }
-        //     },
-        //     error: function (msg) {
-        //         toastr.error(msg);
-        //     }
-        //
-        // });
+        $.ajax({
+            type: "post",
+            url: "/editor",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                "postContent": postContent,
+                "postTitle": postTitle,
+                "postTags": tags,
+                "postClassfiy": classfiy
+            }),
+            dataType: "json",
+            async: true,
+            timeout: 50000,
+            success: function (msg) {
+                if (msg.code == 200) {
+                    window.location.href = msg.data.url
+                } else {
+                    toastr.error(msg.message);
+                }
+            },
+            error: function (msg) {
+                toastr.error(msg);
+            }
+
+        });
 
 
     });

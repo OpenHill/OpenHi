@@ -1,4 +1,4 @@
-var csrftoken = $('meta[name=csrf-token]').attr('content')
+var csrftoken = $('meta[name=csrf-token]').attr('content');
 
 $.ajaxSetup({
 
