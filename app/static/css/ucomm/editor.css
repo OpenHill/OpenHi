@@ -45,3 +45,8 @@
     margin: 1px 3px;
     position: relative
 }
+
+p img{
+    display: block;
+    margin: 0 auto;
+}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <script src="{{ url_for("static",filename="js/ucomm/global.js") }}"></script>
+    <script src="{{ url_for("static",filename="js/ucomm/post.js") }}"></script>
+    <link rel="stylesheet" href="{{ url_for("static",filename="css/ucomm/post.css") }}">
+
+{% endblock %}
+
+
+
+
+{% block top %}
+    {% include 'Index/basetop.html' %}
+{% endblock %}
+
+
+{% block login_regnin %}
+    {% include 'login.html' %}
+    {% include 'regnin.html' %}
+{% endblock %}
+
+
+{% block rightcontent %}
+    {% include 'Post/postcontent.html' %}
+{% endblock %}
+

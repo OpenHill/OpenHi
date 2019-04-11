@@ -12,7 +12,7 @@ from flask import request, g, session, render_template, redirect, url_for, make_
 from app.models.DB.mainDB import DB, ImgManage, Post, Tag
 from app.utlis.xjson import json_params_error, json_success
 from app.datahand.globalmodel.ClassfiyModel import ClassfiyModel
-
+from app.datahand.globalmodel.PostModel import PostModel
 
 @web.route("/editor", methods=["POST", "GET"])
 # @web.route("/e", methods=["POST", "GET"])
@@ -23,7 +23,7 @@ def editor():
         return redirect('web.index')
     model = NavOkLoginModel(userid).Main()
     if request.method == "GET":
-        return render_template("EditPost/editindex.html", Model=model)
+        return render_template("EditPost/editindex.html", Model=model,ifshow=True,user_id=userid)
     else:
         postTitle = request.json.get("postTitle", "未命名")
         postContent = request.json.get("postContent", None)
@@ -65,6 +65,15 @@ def editor():
 
         return json_success("成功", {"url": "post/" + str(posts.pid)})
 
+
+@web.route("/post/<string:id>", methods=["GET"])
+def postShow(id):
+    userid = session.get("user_id", None)
+    if userid:
+        model = NavOkLoginModel(userid).Main()
+        return render_template("Post/index.html", Model=model,content=PostModel().getPost(id))
+    else:
+        return render_template("Post/index.html", Model=ClassfiyModel().GetAllClassfiy(), content=PostModel().getPost(id))
 
 @web.route("/editor/api/classfiyfather", methods=["POST"])
 @login_required

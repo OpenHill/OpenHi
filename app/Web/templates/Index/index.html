@@ -1,22 +1,24 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <script src="{{ url_for("static",filename="js/ucomm/index.js") }}"></script>
+{#    <script src="{{ url_for("static",filename="js/ucomm/index.js") }}"></script>#}
     <link rel="stylesheet" href="{{ url_for("static",filename="css/ucomm/index.css") }}">
 
-
 {% endblock %}
 
-{% block top %}
-    {% include 'Nologin/basetop.html' %}
-{% endblock %}
 
 {% block login_regnin %}
     {% include 'login.html' %}
     {% include 'regnin.html' %}
 {% endblock %}
 
-{% block content %}
-    {% include 'content.html' %}
+
+
+{% block top %}
+    {% include 'Index/basetop.html' %}
+{% endblock %}
+
+{% block rightcontent %}
+    {% include 'indexpostitem.html' %}
 {% endblock %}
 

@@ -14,11 +14,11 @@ from app.models.DB.mainDB import User
 @web.route('/', methods=['GET', 'POST'])
 def index():
     userid = session.get("user_id", None)
-
+    print(userid)
     if userid:
         if User.query.filter(User.uid == userid).first():
             model = IndexData(userid).Main()
-            return render_template("Oklogin/index.html", Model=model)
+            return render_template("Index/index.html", Model=model, user_id=userid)
         else:
             logout_user()
             return redirect("/")
@@ -26,4 +26,5 @@ def index():
         LoginForm = LoginFormVal()
         RegninForm = RegninFormVal()
         model = IndexData().Main()
-        return render_template("Nologin/index.html", Model=model, loginforms=LoginForm, regninforms=RegninForm)
+        return render_template("Index/index.html", Model=model, loginforms=LoginForm, regninforms=RegninForm,
+                               user_id=userid)

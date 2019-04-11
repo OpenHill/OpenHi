@@ -1,0 +1,20 @@
+<div>
+    <div class="text-center">
+        <h1>{{ content.title }}</h1>
+        <div class="row" style="margin: 0">
+            {#            <span class="col-lg-1 hidden-sm hidden-xs  "></span>#}
+            <span class="col-lg-2 hidden-xs"><i class="glyphicon glyphicon-time"></i>:{{ content.insdate }}</span>
+            <span class="col-lg-2"><i class="glyphicon glyphicon-upload"></i>:{{ content.update }}</span>
+            <span class="col-lg-2"><i class="glyphicon glyphicon-user"></i>:{{ content.author }}</span>
+            <span class="col-lg-1"><i class="glyphicon glyphicon-eye-open"></i>:{{ content.chacknum }}</span>
+            <span class="col-lg-3 hidden-xs">发布时间:{{ content.insdate }}</span>
+        </div>
+    </div>
+    <div id="showcontent" style="margin: 5px 5px 0 5px;background: whitesmoke;min-height: 200px;">
+        {{ content.content }}
+    </div>
+
+    <div id="comment" data-pid="{{ content.pid }}">
+
+    </div>
+</div>

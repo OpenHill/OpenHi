@@ -24,6 +24,6 @@ class IndexData(ClassfiyModel, UserModel, PostModel):
         self.dataDict["Classfiy"] = self.GetAllClassfiy()
         if self.userId:
             self.dataDict["User"] = self.GetOneUser()
-        self.dataDict["ContentList"] = self.getPostPage(1, 10)
+        self.dataDict["ContentList"] = self.getItemPostPage(1, 10)
 
         return self.dataDict
