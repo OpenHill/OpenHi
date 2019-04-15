@@ -18,13 +18,10 @@ def index():
     if userid:
         if User.query.filter(User.uid == userid).first():
             model = IndexData(userid).Main()
-            return render_template("Index/index.html", Model=model, user_id=userid)
+            return render_template("Index/index.html", Model=model)
         else:
             logout_user()
             return redirect("/")
     else:
-        LoginForm = LoginFormVal()
-        RegninForm = RegninFormVal()
         model = IndexData().Main()
-        return render_template("Index/index.html", Model=model, loginforms=LoginForm, regninforms=RegninForm,
-                               user_id=userid)
+        return render_template("Index/index.html", Model=model)

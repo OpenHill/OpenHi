@@ -1,25 +1,12 @@
-// 重置布局
-function rewhsize() {
-    let $main = $("#main");
-    let mainw = $main.width();
-    let mainh = $main.height();
-    let $topnav = $("#topnav");
-    // 设置宽
-    $topnav.width(mainw);
-    $("#content").css("margin-top", $topnav.height() + 1);
-    $("#content").height(mainh - $topnav.height());
-}
-
 window.onresize = function () {
     rewhsize();
 };
-
 
 //  select 加载
 function loadSelect1() {
     $.ajax({
         type: "post",
-        url: "/editor/api/classfiyfather",
+        url: "/post/editor/api/classfiyfather",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(),
         dataType: "json",
@@ -64,13 +51,15 @@ $(function () {
         theme: 'snow'
     });
 
+
+
     //标签系统
     $("#addtabbtn").click(function () {
         let vals = $("#addtabtxtbox").val();
         // var tabalertObj = $("#tabalert"); //错误提示框
 
         if (nowtabnum == maxtabnum) {
-            toastr.warning("最多添加" + maxtabnum + "个标签")
+            toastr.warning("最多添加" + maxtabnum + "个标签");
             return;
         }
         if (vals.length == 0) {
@@ -114,7 +103,7 @@ $(function () {
         if (value != 0) {
             $.ajax({
                 type: "post",
-                url: "/editor/api/classfiychildren",
+                url: "/post/editor/api/classfiychildren",
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify({"Id": value}),
                 dataType: "json",
@@ -145,6 +134,7 @@ $(function () {
 
     $("#post_submit").click(function (event) {
         let postContent = quill.container.firstChild.innerHTML;
+        let postlen = quill.getLength();
         let postTitle = $("#post-title").val().trim();
         let tabsObj = $(".posttab");
         let tags = "";
@@ -162,7 +152,7 @@ $(function () {
         }
 
 
-        if (postContent.toString().length <= 30) {
+        if (postlen <= 30) {
             toastr.warning("正文少于30字符！");
             return;
         }
@@ -185,7 +175,7 @@ $(function () {
 
         $.ajax({
             type: "post",
-            url: "/editor",
+            url: "/post/editor",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
                 "postContent": postContent,
@@ -212,7 +202,6 @@ $(function () {
 
     });
     // key
-
 
 
 });

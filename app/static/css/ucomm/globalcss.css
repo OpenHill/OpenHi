@@ -31,3 +31,7 @@
     padding: 0;
     overflow: auto;
 }
+
+#content {
+    overflow: auto;
+}

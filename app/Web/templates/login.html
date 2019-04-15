@@ -1,11 +1,10 @@
-{% if not user_id %}
+{% if not session.user_id %}
     <div class="modal fade" id="LoginModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
                     <form id="loginform" action="/login" method="post">
-                        {#                    {{ loginforms.csrf_token() }}#}
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 
                         <div class="text-center">

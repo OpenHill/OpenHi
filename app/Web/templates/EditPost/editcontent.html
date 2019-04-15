@@ -1,104 +1,101 @@
-<div class="container" style="padding: 0;">
-    <div id="content">
-        <div class="content-manger">
-            <lable>
-                <sapn>主题:</sapn>
-            </lable>
-            <div id="standalone-container">
-                <div id="toolbar-container">
+{#<div class="container" style="padding: 0;">#}
+<div class="content-manger">
+    <lable>
+        <sapn>主题:</sapn>
+    </lable>
+    <div id="standalone-container">
+        <div id="toolbar-container">
                         <span class="ql-formats">
                           <select class="ql-font"></select>
                           <select class="ql-size"></select>
                         </span>
-                    <span class="ql-formats">
+            <span class="ql-formats">
                           <button class="ql-bold"></button>
                           <button class="ql-italic"></button>
                           <button class="ql-underline"></button>
                           <button class="ql-strike"></button>
                         </span>
-                    <span class="ql-formats">
+            <span class="ql-formats">
                           <select class="ql-color"></select>
                           <select class="ql-background"></select>
                         </span>
-                    <span class="ql-formats">
+            <span class="ql-formats">
                           <button class="ql-script" value="sub"></button>
                           <button class="ql-script" value="super"></button>
                         </span>
-                    <span class="ql-formats">
+            <span class="ql-formats">
                           <button class="ql-header" value="1"></button>
                           <button class="ql-header" value="2"></button>
                           <button class="ql-blockquote"></button>
                           <button class="ql-code-block"></button>
                         </span>
-                    <span class="ql-formats">
+            <span class="ql-formats">
                           <button class="ql-list" value="ordered"></button>
                           <button class="ql-list" value="bullet"></button>
                           <button class="ql-indent" value="-1"></button>
                           <button class="ql-indent" value="+1"></button>
                         </span>
-                    <span class="ql-formats">
+            <span class="ql-formats">
                           <button class="ql-direction" value="rtl"></button>
                           <select class="ql-align"></select>
                         </span>
-                    <span class="ql-formats">
+            <span class="ql-formats">
                           <button class="ql-link"></button>
                           <button class="ql-image"></button>
                           <button class="ql-video"></button>
 {#                          <button class="ql-formula"></button>#}
                         </span>
-                    <span class="ql-formats">
+            <span class="ql-formats">
                           <button class="ql-clean"></button>
                         </span>
-                </div>
-                <input id="post-title" class="form-control" type="text" name="title" placeholder="请输入博客标题">
-                <div id="editor-container" style="height: 400px"></div>
-            </div>
-            <div class="text-right">
-                <button id="seeEditorBtn" class="btn btn-primary" data-toggle="modal" data-target="#seeEditor">预览
-                </button>
-            </div>
-            <div id="tabbox"
-                 style="border: 1px #d6d6d6 solid;position: relative;padding-right: 120px;margin: 20px 0 0 0;min-height: 48px">
+        </div>
+        <input id="post-title" class="form-control" type="text" name="title" placeholder="请输入博客标题">
+        <div id="editor-container" style="height: 400px"></div>
+    </div>
+    <div class="text-right">
+        <button id="seeEditorBtn" class="btn btn-primary" data-toggle="modal" data-target="#seeEditor">预览
+        </button>
+    </div>
+    <div id="tabbox"
+         style="border: 1px #d6d6d6 solid;position: relative;padding-right: 120px;margin: 20px 0 0 0;min-height: 48px">
 
                 <span class="tabcontent">
                     <span class="label label-default posttab">原创</span>
                     <span class="btn tabclearbtn">×</span>
                 </span>
-                <div class="input-group" style="position: absolute;right: 0;width: 120px;top:6px;">
-                    <input type="text" class="form-control" id="addtabtxtbox">
-                    <span class="input-group-btn">
+        <div class="input-group" style="position: absolute;right: 0;width: 120px;top:6px;">
+            <input type="text" class="form-control" id="addtabtxtbox">
+            <span class="input-group-btn">
                             <button class="btn btn-default" type="button" id="addtabbtn">
                                 <i class="glyphicon glyphicon-plus"></i>
                             </button>
 					    </span>
-                </div><!-- /input-group -->
-            </div>
-            <div id="tabalert" class="text-center"></div> <!--警告提示框-->
+        </div><!-- /input-group -->
+    </div>
+    <div id="tabalert" class="text-center"></div> <!--警告提示框-->
 
 
-            <div class="form-group row">
-                <div class="col-lg-6">
-                    <label for="exampleFormControlSelect1">主分类</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option value="0">-----</option>
-                    </select>
-                </div>
-                <div class="col-lg-6">
-                    <label for="exampleFormControlSelect2">子分类</label>
-                    <select class="form-control" id="exampleFormControlSelect2">
-                    </select>
-                </div>
-
-
-            </div>
-
-            <div class="text-right" style="margin:20px 0 0 0">
-                <button class="btn btn-primary" id="post_submit">发布</button>
-            </div>
+    <div class="form-group row">
+        <div class="col-lg-6">
+            <label for="exampleFormControlSelect1">主分类</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+                <option value="0">-----</option>
+            </select>
+        </div>
+        <div class="col-lg-6">
+            <label for="exampleFormControlSelect2">子分类</label>
+            <select class="form-control" id="exampleFormControlSelect2">
+            </select>
         </div>
 
+
+    </div>
+
+    <div class="text-right" style="margin:20px 0 0 0">
+        <button class="btn btn-primary" id="post_submit">发布</button>
     </div>
 </div>
+
 
 <!--预览模态框-->
 <div class="modal fade bd-example-modal-lg" id="seeEditor" tabindex="-1" role="dialog">

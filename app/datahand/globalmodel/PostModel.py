@@ -41,7 +41,7 @@ class PostModel:
                 # 文章是否包含图片？
                 imgs = re.findall(r'src="(.*?[\.png|\.jpg|\.gif|\.bmp|\.jpeg])"', i.content)
                 item = IndexPostItemModel(
-                    url="/post/" + str(i.pid),
+                    url="/post?id=" + str(i.pid),
                     title=i.title,
                     content=content[:200],
                     author=i.user.nikename,
@@ -61,13 +61,15 @@ class PostModel:
             postPageData = PostShowPageModel(
                 pid=postdict.pid,
                 author=postdict.user.nikename,
+                uid = postdict.user.uid,
                 title=postdict.title,
                 content=postdict.content,
                 chacknum=postdict.chacknum,
-                cfid=postdict.cfid,
+                classfiyname=postdict.classfiy.cfname,
                 insdate=str(postdict.insdate)[:11],
                 update=str(postdict.update)[:11],
-                flag=postdict.flag
+                flag=postdict.flag,
+                tags=[i.name for i in postdict.tag]
             )
             return postPageData
         else:

@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <script src="{{ url_for("static",filename="js/ucomm/global.js") }}"></script>
-    <script src="{{ url_for("static",filename="js/ucomm/post.js") }}"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='quill/quill.snow.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/comm/katex.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/comm/monokai-sublime.min.css') }}">
     <link rel="stylesheet" href="{{ url_for("static",filename="css/ucomm/post.css") }}">
 
+    <script src="{{ url_for('static', filename='js/comm/katex.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/comm/highlight.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='quill/quill.min.js') }}"></script>
+    <script src="{{ url_for("static",filename="js/ucomm/global.js") }}"></script>
+    <script src="{{ url_for("static",filename="js/ucomm/post.js") }}"></script>
 {% endblock %}
 
 

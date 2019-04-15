@@ -27,29 +27,43 @@ toastr.options = {
     hideMethod: "fadeOut"                                   //   消失时的动画方式
 };
 
-// 全局布局
-function rewhsize() {
-    var $main = $("#main");
-    var mainw = $main.width();
-    var mainh = $main.height();
-    var $leftobj = $("#one");
-    var $rightobj = $("#two");
-    var $topnav = $("#topnav");
-    // 设置宽
-    if ($leftobj.css("display") == "block") {
-        $leftobj.width(mainw / 12 * 3);
-        $rightobj.width(mainw / 12 * 9);
-        $rightobj.css("margin-left", $leftobj.width());
-    } else {
-        $leftobj.width(0);
-        $rightobj.css("margin-left", "0px");
-        $rightobj.width(mainw);
+if (document.getElementById("one") && document.getElementById("two")) {
+    // 全局布局
+    function rewhsize() {
+        var $main = $("#main");
+        var mainw = $main.width();
+        var mainh = $main.height();
+        var $leftobj = $("#one");
+        var $rightobj = $("#two");
+        var $topnav = $("#topnav");
+        // 设置宽d
+        if ($leftobj.css("display") == "block") {
+            $leftobj.width(mainw / 12 * 3.5);
+            $rightobj.width(mainw / 12 * 8.5);
+            $rightobj.css("margin-left", $leftobj.width());
+        } else {
+            $leftobj.width(0);
+            $rightobj.css("margin-left", "0px");
+            $rightobj.width(mainw);
+        }
+        $topnav.width(mainw);
+        $leftobj.css("margin-top", $topnav.height() + 1);
+        $rightobj.css("margin-top", $topnav.height() + 1);
+        $leftobj.height(mainh - $topnav.height());
+        $rightobj.height(mainh - $topnav.height());
     }
-    $topnav.width(mainw);
-    $leftobj.css("margin-top", $topnav.height() + 1);
-    $rightobj.css("margin-top", $topnav.height() + 1);
-    $leftobj.height(mainh - $topnav.height());
-    $rightobj.height(mainh - $topnav.height());
+} else {
+    // 重置布局
+    function rewhsize() {
+        let $main = $("#main");
+        let mainw = $main.width();
+        let mainh = $main.height();
+        let $topnav = $("#topnav");
+        // 设置宽
+        $topnav.width(mainw);
+        $("#content").css("margin-top", $topnav.height() + 1);
+        $("#content").height(mainh - $topnav.height());
+    }
 }
 
 
@@ -92,7 +106,7 @@ $(function () {
                     success: function (msg) {
                         if (msg.code == 200) {
                             // 成功
-                            window.location.href = "/"
+                            window.location.href = window.location.href;
                         } else {
                             // 失败
                             toastr.error(msg.message);

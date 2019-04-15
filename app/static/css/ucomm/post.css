@@ -4,7 +4,68 @@ img {
     height: auto;
     margin: 0 auto;
 }
-#two{
-    background-color: white;
+
+#two {
+    background-color: whitesmoke;
     /*position: relative;*/
+}
+
+#postTitle {
+    background-color: white;
+    padding: 12px;
+}
+
+#postTitle span {
+    margin-left: 7px;
+    color: #A0A0A0;
+}
+
+#showcontent {
+    background: whitesmoke;
+    min-height: 200px;
+    border: 1px #e0e0e0 solid;
+    padding: 8px;
+}
+
+#commentshow {
+    border: 1px #e0e0e0 solid;
+    padding: 8px;
+    margin: 30px 8px;
+}
+
+#editor {
+    height: 200px;
+}
+
+
+.ql-syntax {
+    /*background-color: #23241f;*/
+}
+
+.comment_content {
+    padding-right: 55px;
+    height: 50px;
+}
+
+.comment_comment {
+    float: right
+}
+
+.commentItemTitle {
+    font-weight: 600;
+    margin: 0 0 5px 4px;
+    color:#5e5e5e;
+}
+
+.commentItemBody {
+    width: 100%;
+    padding-left: 60px;
+}
+
+.commentItemHeader {
+    width: 55px;
+    float: left;
+}
+h4{
+    font-size: 16px;
 }

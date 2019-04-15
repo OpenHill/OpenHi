@@ -5634,7 +5634,7 @@ a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
 }
 
 .media-body {
-    width: 10000px
+    width: 10000px;
 }
 
 .media-object {

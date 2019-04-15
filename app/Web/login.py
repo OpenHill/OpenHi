@@ -25,6 +25,7 @@ def Login():
             if user:
                 if user.check_password(userpwd):
                     login_user(user)
+                    session['user_name'] = user.nikename
                     return json_success("登入成功")
                 else:
                     return json_params_error("账号或密码错误")
@@ -56,6 +57,7 @@ def regnin():
                 DB.session.add(user)
                 DB.session.commit()
                 login_user(user)
+                session['user_name'] = user.nikename
                 return json_success("注册成功")
             else:
                 return json_params_error("用户已存在")
@@ -74,6 +76,7 @@ def regnin():
 @login_required
 def outloing():
     logout_user()
-    return redirect(url_for('Web.index'))
+    print(request.referrer)
+    return redirect(request.referrer or url_for('Web.index'))
 
 #

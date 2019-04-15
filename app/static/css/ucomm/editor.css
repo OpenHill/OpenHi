@@ -8,19 +8,14 @@
 
 
 #main {
-    /*padding-top: 100px;*/
     background-color: #EEEEEE;
     height: 100vh;
     padding: 0;
 }
 
-#content {
-    overflow: auto;
-}
-
 @media (max-width: 500px) {
     .content-manger {
-        margin: 0 5px
+        margin: 0 5px;
     }
 }
 
@@ -31,7 +26,7 @@
 }
 
 .tabclearbtn {
-    padding: 0px;
+    padding: 0;
     position: absolute;
     right: 0;
     top: -3px;
@@ -46,7 +41,7 @@
     position: relative
 }
 
-p img{
+p img {
     display: block;
     margin: 0 auto;
 }

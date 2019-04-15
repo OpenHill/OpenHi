@@ -1,20 +1,122 @@
 <div>
-    <div class="text-center">
+    <div id="postTitle" class="container-fluid">
         <h1>{{ content.title }}</h1>
-        <div class="row" style="margin: 0">
-            {#            <span class="col-lg-1 hidden-sm hidden-xs  "></span>#}
-            <span class="col-lg-2 hidden-xs"><i class="glyphicon glyphicon-time"></i>:{{ content.insdate }}</span>
-            <span class="col-lg-2"><i class="glyphicon glyphicon-upload"></i>:{{ content.update }}</span>
-            <span class="col-lg-2"><i class="glyphicon glyphicon-user"></i>:{{ content.author }}</span>
-            <span class="col-lg-1"><i class="glyphicon glyphicon-eye-open"></i>:{{ content.chacknum }}</span>
-            <span class="col-lg-3 hidden-xs">发布时间:{{ content.insdate }}</span>
+        <span class=""><i class="glyphicon glyphicon-user"></i>:{{ content.author }}</span>
+        <span class=""><i class="glyphicon glyphicon-time"></i>:{{ content.insdate }}</span>
+        <span class=""><i class="glyphicon glyphicon-upload"></i>:{{ content.update }}</span>
+        <span class=""><i class="glyphicon glyphicon-eye-open"></i>:{{ content.chacknum }}</span>
+        <span class=""><i class="glyphicon glyphicon-tags"></i>&nbsp;:{{ content.classfiyname }}</span>
+        <div>
+            <span>Tags:</span>
+            {% for name in content.tags %}
+                <span class="label label-primary" style="color: white">{{ name }}</span>
+            {% endfor %}
+
+
         </div>
     </div>
-    <div id="showcontent" style="margin: 5px 5px 0 5px;background: whitesmoke;min-height: 200px;">
+
+    <div id="showcontent">
         {{ content.content }}
     </div>
 
-    <div id="comment" data-pid="{{ content.pid }}">
+    <div id="commentshow" class="container-fluid" data-pid="{{ content.pid }}">
+        <div>用户评论：</div>
+
+        {% for comments in commentlist %}
+            <div class="media" style="padding:0 3px 5px 3px;">
+                <div class="commentItemHeader">
+                    <img src="{{ "/file/img/1555304950.png" if not comments.img else comments.img }}"
+                         class="media-object"
+                         style="width: 55px;">
+                </div>
+                <div class="commentItemBody">
+                    {% if content.uid != comments.uid %}
+                        <h4 class="commentItemTitle">{{ comments.nikeName }}</h4>
+                    {% else %}
+                        <h4 class="commentItemTitle">作者({{ comments.nikeName }})</h4>
+                    {% endif %}
+
+
+                    <a href="#commenteditor">
+                        <button class="btn btn-primary comment_comment"
+                                data-cid="{{ comments.cid }}" data-name="{{ comments.nikeName }}" data-v="1">回复
+                        </button>
+                    </a>
+                    <div class="comment_content">
+                        {{ comments.content }}
+                    </div>
+                    {% for domcommets in comments.domcommet %}
+                        <div class="media" style="padding:0 3px 5px 3px;">
+                            <div class="commentItemHeader">
+                                <img src="{{ "/file/img/1555304950.png" if not domcommets.img else domcommets.img }}"
+                                     class="media-object"
+                                     style="width: 55px;">
+                            </div>
+                            <div class="commentItemBody">
+                                {% if content.uid != domcommets.uid %}
+                                    <h4 class="commentItemTitle">{{ domcommets.nikeName }}</h4>
+                                {% else %}
+                                    <h4 class="commentItemTitle">作者({{ domcommets.nikeName }})</h4>
+
+                                {% endif %}
+
+                                {% if domcommets.userNikeName != domcommets.nikeName %}
+                                    <h6 style="color: blue">回复：@{{ domcommets.userNikeName }}</h6>
+                                {% endif %}
+
+                                <a href="#commenteditor">
+                                    <button class="btn btn-primary comment_comment"
+                                            data-cid="{{ domcommets.cid }}" data-name="{{ domcommets.nikeName }}"
+                                            data-v="2">回复
+                                    </button>
+                                </a>
+                                <div class="comment_content">
+                                    {{ domcommets.content }}
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <p class="text-center">暂无评论</p>
+
+        {% endfor %}
 
     </div>
+
+    <div id="commenteditor" class="container-fluid" data-pid="{{ content.pid }}" data-commentid="0" data-upcommentid="0"
+         style="margin-bottom: 30px">
+        <div>
+            <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="" type="button">昵称：</span>
+                    </span>
+
+                {% if session.user_id %}
+                    <input id="commenttitle" type="text" class="form-control" readonly value="{{ session.user_name }}">
+
+                {% else %}
+                    <input id="commenttitle" type="text" class="form-control" value="">
+                {% endif %}
+
+
+                <span class="input-group-btn">
+                        <button id="comment_submit" class="btn btn-primary" type="button">评论他</button>
+                    </span>
+            </div>
+            <div id="showal" data-cid="0" data-upcid="0" data-uid="{{ session.user_id or "0" }}">回复：<span
+                    style="color: blue">@</span><span id="showrelyname"
+                                                      style="color: #F89406;font-weight: bolder">{{ content.author }}</span>
+            </div>
+        </div>
+        <div id="editor">
+
+
+        </div>
+    </div>
+
+
 </div>

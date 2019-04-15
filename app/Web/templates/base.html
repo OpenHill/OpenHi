@@ -12,15 +12,22 @@
 
     <title>test</title>
 </head>
-<body>
+<body style="background-image: url('{{ url_for("static",filename="img/bg.jpg")}}')">
 <div id="main" class="container">
     {% block top %}{% endblock %}
     {% block login_regnin %}{% endblock %}
-    {% block utlis %}
 
-    {% endblock %}
+    {% if ifshow %}
+        <div id="content" class="container-fluid">
+            {% block utlis %}
+
+            {% endblock %}
+        </div>
+    {% endif %}
+
+
     {% if not ifshow %}
-        <div class="container">
+        <div id="content" class="container">
             <div class="row">
                 <div id="one" class="visible-lg visible-md">
                     {% block leftcontent %}{% endblock %}

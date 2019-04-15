@@ -7,15 +7,16 @@ import re
 from flask_login import login_required
 
 from app.datahand.Nav_Oklogin import NavOkLoginModel
+from app.datahand.globalmodel.CommentModel import CommentModel
 from . import web
 from flask import request, g, session, render_template, redirect, url_for, make_response
-from app.models.DB.mainDB import DB, ImgManage, Post, Tag
+from app.models.DB.mainDB import DB, ImgManage, Post, Tag, Comment
 from app.utlis.xjson import json_params_error, json_success
 from app.datahand.globalmodel.ClassfiyModel import ClassfiyModel
 from app.datahand.globalmodel.PostModel import PostModel
 
-@web.route("/editor", methods=["POST", "GET"])
-# @web.route("/e", methods=["POST", "GET"])
+
+@web.route("/post/editor", methods=["POST", "GET"])
 @login_required
 def editor():
     userid = session.get("user_id", None)
@@ -23,7 +24,7 @@ def editor():
         return redirect('web.index')
     model = NavOkLoginModel(userid).Main()
     if request.method == "GET":
-        return render_template("EditPost/editindex.html", Model=model,ifshow=True,user_id=userid)
+        return render_template("EditPost/editindex.html", Model=model, ifshow=True, user_id=userid)
     else:
         postTitle = request.json.get("postTitle", "未命名")
         postContent = request.json.get("postContent", None)
@@ -59,35 +60,77 @@ def editor():
 
         posts = Post(userid, postTitle, postContent, postClassfiy)
         for i in postTags:
-            posts.tags.append(i)
+            posts.tag.append(i)
         DB.session.add(posts)
         DB.session.commit()
 
-        return json_success("成功", {"url": "post/" + str(posts.pid)})
+        return json_success("成功", {"url": "/post?id=" + str(posts.pid)})
 
 
-@web.route("/post/<string:id>", methods=["GET"])
-def postShow(id):
+@web.route("/post", methods=["GET"])
+def postShow():
     userid = session.get("user_id", None)
+    id = request.args.get("id", None)
+    a = CommentModel().getAllComment(id)
+    if not id:
+        return redirect(request.args.get('next', url_for('Web.index')))
     if userid:
         model = NavOkLoginModel(userid).Main()
-        return render_template("Post/index.html", Model=model,content=PostModel().getPost(id))
+        return render_template("Post/index.html", Model=model, content=PostModel().getPost(id),
+                               commentlist=a)
     else:
-        return render_template("Post/index.html", Model=ClassfiyModel().GetAllClassfiy(), content=PostModel().getPost(id))
+        return render_template("Post/index.html", Model=ClassfiyModel().GetAllClassfiy(),
+                               content=PostModel().getPost(id), commentlist=a)
 
-@web.route("/editor/api/classfiyfather", methods=["POST"])
+
+@web.route("/post/editor/api/classfiyfather", methods=["POST"])
 @login_required
 def getClassfiyFather():
     return json_success("获取分类", data=ClassfiyModel().getFatherClassfiy())
 
 
-@web.route("/editor/api/classfiychildren", methods=["POST"])
+@web.route("/post/editor/api/classfiychildren", methods=["POST"])
 @login_required
 def getClassfiyChildren():
     Id = request.json.get('Id', None)
     if Id:
         return json_success("获取分类", data=ClassfiyModel().getChildrenClassfiy(id=Id))
     return json_params_error("参数错误")
+
+
+@web.route("/post/comment", methods=["POST"])
+def postComment():
+    name = request.json.get("Name")
+    uid = request.json.get("Uid")
+    cid = request.json.get("Cid")
+    upcid = request.json.get("Upcid")
+    pid = request.json.get("Pid")
+    content = request.json.get("Content")
+
+    if not name:
+        return json_params_error("必须要昵称")
+    if not content or len(content) <= 8:
+        return json_params_error("无评论内容")
+    if not cid:
+        return json_params_error("参数错误")
+    if not uid:
+        return json_params_error("参数错误")
+    if not upcid:
+        return json_params_error("参数错误")
+    if not pid:
+        return json_params_error("参数错误")
+
+    comment = Comment(pid=pid,
+                      uid=uid if uid != "0" else None,
+                      text=content,
+                      relycid=cid if cid != "0" else None,
+                      upcid=upcid if upcid != "0" else None,
+                      nikename=name
+                      )
+    DB.session.add(comment)
+    DB.session.commit()
+
+    return json_success("ok")
 
 
 #  工具方法
