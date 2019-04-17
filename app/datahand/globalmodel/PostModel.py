@@ -41,7 +41,7 @@ class PostModel:
                 # 文章是否包含图片？
                 imgs = re.findall(r'src="(.*?[\.png|\.jpg|\.gif|\.bmp|\.jpeg])"', i.content)
                 item = IndexPostItemModel(
-                    url="/post?id=" + str(i.pid),
+                    url="/post?pid=" + str(i.pid),
                     title=i.title,
                     content=content[:200],
                     author=i.user.nikename,

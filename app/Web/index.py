@@ -14,7 +14,6 @@ from app.models.DB.mainDB import User
 @web.route('/', methods=['GET', 'POST'])
 def index():
     userid = session.get("user_id", None)
-    print(userid)
     if userid:
         if User.query.filter(User.uid == userid).first():
             model = IndexData(userid).Main()
@@ -25,3 +24,11 @@ def index():
     else:
         model = IndexData().Main()
         return render_template("Index/index.html", Model=model)
+
+
+@web.route("/404")
+@web.errorhandler(404)
+def error(e):
+    code = e.code
+    if code == 404:
+        return render_template("Error/404.html")

@@ -14,7 +14,7 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="example-navbar-collapse">
                 <ul class="nav navbar-nav">
-                    {% for foo in Model["Classfiy"] %}
+                    {% for foo in jinja_getClassfiyData() %}
                         <!-- li必须带a标签才能显示tabs效果 -->
                         {% if not foo["IfDom"] %}
                             <li><a href="{{ foo["Url"] }}">{{ foo["Name"] }}</a></li>
@@ -39,12 +39,12 @@
                     <li class="dropdown">
                         {% if session.user_id %}
                             <a class="dropdown-toggle" data-toggle="dropdown">
-                                {{ Model["User"]["Name"] }}
+                                {{ session.user_name }}
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="text-center"><a href="/post/editor">发表博客</a></li>
-                                <li><a href="setting/{{ Model["User"]["Uid"] }}"><i
+                                <li><a href="setting/{{ session.user_id }}"><i
                                         class="glyphicon glyphicon-user"></i>个人信息</a></li>
                                 <li><a href="/outlogin"><i class="glyphicon glyphicon-user"></i>注销登陆</a></li>
                             </ul>

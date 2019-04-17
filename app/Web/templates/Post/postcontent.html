@@ -17,7 +17,7 @@
     </div>
 
     <div id="showcontent">
-        {{ content.content }}
+        {{ content.content|safe }}
     </div>
 
     <div id="commentshow" class="container-fluid" data-pid="{{ content.pid }}">
@@ -44,7 +44,7 @@
                         </button>
                     </a>
                     <div class="comment_content">
-                        {{ comments.content }}
+                        {{ comments.content|safe }}
                     </div>
                     {% for domcommets in comments.domcommet %}
                         <div class="media" style="padding:0 3px 5px 3px;">
@@ -72,7 +72,7 @@
                                     </button>
                                 </a>
                                 <div class="comment_content">
-                                    {{ domcommets.content }}
+                                    {{ domcommets.content|safe }}
                                 </div>
                             </div>
 

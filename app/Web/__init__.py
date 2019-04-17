@@ -15,3 +15,4 @@ from . import index
 from . import login
 from . import post
 from . import filemanage
+from .JinJa2_Func import add_global_templates

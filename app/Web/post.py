@@ -6,10 +6,10 @@ import re
 
 from flask_login import login_required
 
-from app.datahand.Nav_Oklogin import NavOkLoginModel
+# from app.datahand.Nav_Oklogin import NavOkLoginModel,NavOnLoginModel
 from app.datahand.globalmodel.CommentModel import CommentModel
 from . import web
-from flask import request, g, session, render_template, redirect, url_for, make_response
+from flask import request, g, session, render_template, redirect, url_for
 from app.models.DB.mainDB import DB, ImgManage, Post, Tag, Comment
 from app.utlis.xjson import json_params_error, json_success
 from app.datahand.globalmodel.ClassfiyModel import ClassfiyModel
@@ -22,9 +22,8 @@ def editor():
     userid = session.get("user_id", None)
     if not userid:
         return redirect('web.index')
-    model = NavOkLoginModel(userid).Main()
     if request.method == "GET":
-        return render_template("EditPost/editindex.html", Model=model, ifshow=True, user_id=userid)
+        return render_template("EditPost/editindex.html", ifshow=True)
     else:
         postTitle = request.json.get("postTitle", "未命名")
         postContent = request.json.get("postContent", None)
@@ -64,23 +63,29 @@ def editor():
         DB.session.add(posts)
         DB.session.commit()
 
-        return json_success("成功", {"url": "/post?id=" + str(posts.pid)})
+        return json_success("成功", {"url": "/post?pid=" + str(posts.pid)})
 
 
 @web.route("/post", methods=["GET"])
 def postShow():
     userid = session.get("user_id", None)
-    id = request.args.get("id", None)
-    a = CommentModel().getAllComment(id)
-    if not id:
+    pid = request.args.get("pid", None)
+
+    # 访问+1
+    cmt = Post.query.filter(Post.pid == pid).first()
+    cmt.chacknum = cmt.chacknum + 1
+    DB.session.commit()
+
+    commentmodel = CommentModel().getAllComment(pid)
+    if not pid:
         return redirect(request.args.get('next', url_for('Web.index')))
     if userid:
-        model = NavOkLoginModel(userid).Main()
-        return render_template("Post/index.html", Model=model, content=PostModel().getPost(id),
-                               commentlist=a)
+        # model = NavOkLoginModel(userid).Main()
+        return render_template("Post/index.html", content=PostModel().getPost(pid),
+                               commentlist=commentmodel)
     else:
-        return render_template("Post/index.html", Model=ClassfiyModel().GetAllClassfiy(),
-                               content=PostModel().getPost(id), commentlist=a)
+        return render_template("Post/index.html",
+                               content=PostModel().getPost(pid), commentlist=commentmodel)
 
 
 @web.route("/post/editor/api/classfiyfather", methods=["POST"])
