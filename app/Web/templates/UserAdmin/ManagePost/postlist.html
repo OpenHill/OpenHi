@@ -14,8 +14,8 @@
             {% for foo in Model %}
                 <tr>
                     <th scope="row">{{ foo.pid }}</th>
-                    <td>{{ foo.title }}</td>
-                    <td>{{ foo.chacknum }}</td>
+                    <td><a href="/post?pid={{ foo.pid }}">{{ foo.title }}</a></td>
+                    <td>{{ foo.chacknum }} </td>
                     <td>{{ foo.insdate }}</td>
                     <td>
                         <button id="editorPostBtn" class="btn btn-primary" data-pid="{{ foo.pid }}">修改</button>
