@@ -70,7 +70,7 @@ class Post(DB.Model):
     cfid = DB.Column(Integer, ForeignKey("classify_tables.cfid"), nullable=False)  # 所属类别
     insdate = DB.Column(DateTime, default=func.now())  # 兴建日期
     update = DB.Column(DateTime, default=func.now(), onupdate=func.now())  # 兴建日期
-    flag = DB.Column(Integer, default=0)  # 默认为0  0为隐藏/ 1为显示
+    flag = DB.Column(Integer, default=1)  # 默认为0  0为隐藏/ 1为显示
 
     # 多对多
     tag = DB.relationship('Tag', secondary=post_tag, back_populates="post")

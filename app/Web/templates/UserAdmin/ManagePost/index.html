@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='quill/quill.snow.css') }}">#}
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/comm/katex.min.css') }}">#}
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/comm/monokai-sublime.min.css') }}">#}
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/ucomm/editor.css') }}">#}
+{##}
+{#    <script src="{{ url_for('static', filename='js/comm/katex.min.js') }}"></script>#}
+{#    <script src="{{ url_for('static', filename='js/comm/highlight.min.js') }}"></script>#}
+{#    <script src="{{ url_for('static', filename='quill/quill.min.js') }}"></script>#}
+    <script src="{{ url_for('static', filename='js/ucomm/managepost.js') }}"></script>
+
+
+
+{% endblock %}
+
+{% block top %}
+    {% include 'Index/basetop.html' %}
+{% endblock %}
+
+{% block rightcontent %}
+    {% include 'UserAdmin/ManagePost/postlist.html' %}
+{% endblock %}
+

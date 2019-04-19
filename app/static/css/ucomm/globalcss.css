@@ -34,4 +34,6 @@
 
 #content {
     overflow: auto;
+    padding: 0;
+    /*background-color: whitesmoke;*/
 }

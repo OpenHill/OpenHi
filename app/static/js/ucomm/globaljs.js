@@ -92,8 +92,8 @@ $(function () {
                 // 发送 Ajax 请求
                 $("#login_submit").addClass("disabled");
                 $.ajax({
-                    type: "POST",
                     url: "/login",
+                    type: "POST",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
                             username: $("#login_username").val(),

@@ -2,14 +2,10 @@
 # There is Mr. Wang's creation
 # index 视图
 from flask_login import logout_user
-from flask_wtf import FlaskForm
-
 from . import web
 from flask import request, redirect, render_template, session
 from ..datahand.Index_Data import IndexData
-from ..form.LoingandRegnin import LoginFormVal, RegninFormVal
 from app.models.DB.mainDB import User
-
 
 @web.route('/', methods=['GET', 'POST'])
 def index():
@@ -26,9 +22,4 @@ def index():
         return render_template("Index/index.html", Model=model)
 
 
-@web.route("/404")
-@web.errorhandler(404)
-def error(e):
-    code = e.code
-    if code == 404:
-        return render_template("Error/404.html")
+

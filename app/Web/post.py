@@ -9,7 +9,7 @@ from flask_login import login_required
 # from app.datahand.Nav_Oklogin import NavOkLoginModel,NavOnLoginModel
 from app.datahand.globalmodel.CommentModel import CommentModel
 from . import web
-from flask import request, g, session, render_template, redirect, url_for
+from flask import request, g, session, render_template, redirect, url_for, abort
 from app.models.DB.mainDB import DB, ImgManage, Post, Tag, Comment
 from app.utlis.xjson import json_params_error, json_success
 from app.datahand.globalmodel.ClassfiyModel import ClassfiyModel
@@ -20,6 +20,8 @@ from app.datahand.globalmodel.PostModel import PostModel
 @login_required
 def editor():
     userid = session.get("user_id", None)
+    uid = request.args.get("uid", None)
+    pid = request.args.get("pid", None)
     if not userid:
         return redirect('web.index')
     if request.method == "GET":
@@ -65,20 +67,29 @@ def editor():
 
         return json_success("成功", {"url": "/post?pid=" + str(posts.pid)})
 
+    # else:
+    #     uid = request.args.get("uid", None)
+    #     pid = request.args.get("pid", None)
+    #
+    #     if uid == userid and pid:
+    #         postObj = Post.query.filter(Post.uid == uid, Post.pid == pid).first()
+    #     # else:
+
 
 @web.route("/post", methods=["GET"])
 def postShow():
     userid = session.get("user_id", None)
     pid = request.args.get("pid", None)
 
+    if not pid or not Post.query.get(pid):
+        return abort(400)
+
+    commentmodel = CommentModel().getAllComment(pid)
     # 访问+1
     cmt = Post.query.filter(Post.pid == pid).first()
     cmt.chacknum = cmt.chacknum + 1
     DB.session.commit()
 
-    commentmodel = CommentModel().getAllComment(pid)
-    if not pid:
-        return redirect(request.args.get('next', url_for('Web.index')))
     if userid:
         # model = NavOkLoginModel(userid).Main()
         return render_template("Post/index.html", content=PostModel().getPost(pid),

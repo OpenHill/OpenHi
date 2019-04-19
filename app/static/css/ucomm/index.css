@@ -14,10 +14,12 @@ a:hover {
 }
 
 
-
 @media (max-width: 500px) {
     .blog-Item-h {
         height: 12rem;
+        margin: 20px 15px;
+        background-color: #fff;
+        padding: 4px
     }
 
     .blog-img-auto {
@@ -55,6 +57,9 @@ a:hover {
 @media (min-width: 501px) {
     .blog-Item-h {
         height: 18rem;
+        margin: 20px 15px;
+        background-color: #fff;
+        padding: 4px
     }
 
     .blog-item-title {
@@ -88,6 +93,12 @@ a:hover {
 }
 
 @media (min-width: 768px ) {
+    .blog-Item-h{
+        height: 18rem;
+        margin: 30px 25px;
+        background-color: #fff;
+        padding: 4px
+    }
     .blog-item-title {
         font-size: 20px;
         font-weight: bold;

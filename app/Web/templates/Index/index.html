@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-   <link rel="stylesheet" href="{{ url_for('static', filename='quill/quill.snow.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='quill/quill.snow.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/comm/katex.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/comm/monokai-sublime.min.css') }}">
     <link rel="stylesheet" href="{{ url_for("static",filename="css/ucomm/index.css") }}">
@@ -9,7 +9,13 @@
     <script src="{{ url_for('static', filename='js/comm/katex.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/comm/highlight.min.js') }}"></script>
     <script src="{{ url_for('static', filename='quill/quill.min.js') }}"></script>
-        <script src="{{ url_for("static",filename="js/ucomm/post.js") }}"></script>
+    <script src="{{ url_for("static",filename="js/ucomm/post.js") }}"></script>
+
+    <style>
+        #one a {
+            color: whitesmoke;
+        }
+    </style>
 
 {% endblock %}
 
@@ -27,13 +33,48 @@
 
 
 {% block leftcontent %}
-    <div class="text-center" style="height: 230px;padding: 10px" >
-        <img class="img-circle" src='/file/img/1555296411.png' style="width: 135px;height: 135px">
-        <h4 style="color: whitesmoke;font-weight: bolder;">老王</h4>
-    <div style="color: whitesmoke">
-        只要自己开心就好
-    </div>
-    </div>
+
+    {% if session.user_id %}
+        <div class="text-center" style="height: 230px;padding: 10px">
+            <img class="img-circle" src='/file/img/1555296411.png' style="width: 135px;height: 135px">
+            <h4 style="color: whitesmoke;font-weight: bolder;">老王</h4>
+            <div style="color: whitesmoke">
+                只要自己开心就好
+            </div>
+        </div>
+        <div>
+            <ul style="color: whitesmoke;list-style-type: none;padding: 0">
+                <li><h4 class="text-center"><a href="/">首页</a></h4></li>
+                <li><h4 class="text-center"><a href="/">心情</a></h4></li>
+                <li><h4 class="text-center"><a href="/">时光轴</a></h4></li>
+                <li><h4 class="text-center"><a href="/">个人信息</a></h4></li>
+                <li><h4 class="text-center"><a href="/useradmin/postlist">管理我的文章</a></h4></li>
+            </ul>
+        </div>
+
+        <div style="color: whitesmoke;padding: 5px">
+            <h4>友情链接</h4>
+            <span class="label label-danger"><a href="">一山小说网</a></span>
+        </div>
+
+    {% else %}
+        <div class="text-center" style="height: 230px;padding: 10px">
+            <img class="img-circle" src='/static/img/bg.jpg' style="width: 135px;height: 135px">
+            <h4 style="color: whitesmoke;font-weight: bolder;">OpenHill-开源博客</h4>
+            <div style="color: whitesmoke">
+                技术改变生活,代码改变世界
+            </div>
+        </div>
+        <div>
+            <ul style="color: whitesmoke;list-style-type: none;padding: 0">
+                <li><h4 class="text-center"><a href="/">更新日志</a></h4></li>
+                <li><h4 class="text-center"><a href="https://github.com/OpenHill/OpenHi.git">获取项目源码</a></h4></li>
+                <li><h4 class="text-center"><a href="https://github.com/OpenHill">作者:GitHub-OpenHill</a></h4></li>
+            </ul>
+        </div>
+    {% endif %}
+
+
 {% endblock %}
 
 {% block rightcontent %}

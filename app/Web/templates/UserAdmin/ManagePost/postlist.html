@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <table class="table table-bordered text-center">
+        <thead>
+        <tr>
+            <th class="text-center">#</th>
+            <th class="text-center">文章标题</th>
+            <th class="text-center">点击量</th>
+            <th class="text-center">发布时间</th>
+            <th class="text-center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if Model %}
+            {% for foo in Model %}
+                <tr>
+                    <th scope="row">{{ foo.pid }}</th>
+                    <td>{{ foo.title }}</td>
+                    <td>{{ foo.chacknum }}</td>
+                    <td>{{ foo.insdate }}</td>
+                    <td>
+                        <button id="editorPostBtn" class="btn btn-primary" data-pid="{{ foo.pid }}">修改</button>
+                        <button id="deletePostBtn" class="btn btn-danger" data-pid="{{ foo.pid }}">删除</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <th class="text-center" colspan="5">还没有发表文章呢!</th>
+
+            </tr>
+        {% endif %}
+
+
+        </tbody>
+    </table>
+</div>

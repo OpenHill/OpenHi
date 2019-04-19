@@ -17,3 +17,5 @@ class UserModel:
         userModelCopy["Img"] = UserObj.img
         userModelCopy["Statement"] = UserObj.statement
         return userModelCopy
+
+    # def get

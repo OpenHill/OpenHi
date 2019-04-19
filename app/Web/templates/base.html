@@ -28,14 +28,14 @@
 
     {% if not ifshow %}
         <div id="content" class="container">
-            <div class="row">
+{#            <div class="row">#}
                 <div id="one" class="visible-lg visible-md">
                     {% block leftcontent %}{% endblock %}
                 </div>
                 <div id="two">
                     {% block rightcontent %}{% endblock %}
                 </div>
-            </div>
+{#            </div>#}
         </div>
     {% endif %}
 

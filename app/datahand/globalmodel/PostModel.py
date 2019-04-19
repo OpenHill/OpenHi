@@ -19,7 +19,7 @@ class PostModel:
         pagenum = abs(pagenum)
 
         # 查询
-        postList = Post.query.filter().all()
+        postList = Post.query.filter(Post.flag !=0).all()
 
         if (pages * pagenum < len(postList)):
             postList = postList[(pages - 1) * pagenum:pages * pagenum]
@@ -54,14 +54,14 @@ class PostModel:
                 postList[index] = item.__dict__
             return postList
 
-    def getPost(self, id):
-        postdict = Post.query.filter(Post.pid == id).first()
+    def getPost(self, pid):
+        postdict = Post.query.filter(Post.pid == pid).first()
 
         if postdict:
             postPageData = PostShowPageModel(
                 pid=postdict.pid,
                 author=postdict.user.nikename,
-                uid = postdict.user.uid,
+                uid=postdict.user.uid,
                 title=postdict.title,
                 content=postdict.content,
                 chacknum=postdict.chacknum,
@@ -74,3 +74,24 @@ class PostModel:
             return postPageData
         else:
             return postdict
+
+    def getPostByUid(self, uid):
+        postdictlist = Post.query.filter(Post.uid == uid , Post.flag != 0).all()
+
+        for index, postdict in enumerate(postdictlist):
+            if postdict:
+                postPageData = PostShowPageModel(
+                    pid=postdict.pid,
+                    author=postdict.user.nikename,
+                    uid=postdict.user.uid,
+                    title=postdict.title,
+                    content=postdict.content,
+                    chacknum=postdict.chacknum,
+                    classfiyname=postdict.classfiy.cfname,
+                    insdate=postdict.insdate,
+                    update=postdict.update,
+                    flag=postdict.flag,
+                    tags=[i.name for i in postdict.tag]
+                )
+                postdictlist[index] = postPageData
+            return postdictlist
